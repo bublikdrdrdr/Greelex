@@ -1,6 +1,5 @@
 package app.exceptions;
 
-import com.sun.istack.internal.Nullable;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,7 +12,6 @@ import lombok.experimental.Accessors;
 @NoArgsConstructor
 public class SymbolNotFoundException extends RuntimeException {
 
-    @Nullable
     private String symbol;
 
     public SymbolNotFoundException(String message) {

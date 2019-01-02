@@ -11,6 +11,16 @@ repositories {
     mavenCentral()
 }
 
+task fatJar(type: Jar) {
+    manifest {
+        attributes 'Implementation-Version': version,
+                'Main-Class': 'app.console.Console'
+    }
+    baseName = project.name
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
+}
+
 dependencies {
     compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.0'
     compile 'com.github.javaparser:javaparser-symbol-solver-core:3.7.0'

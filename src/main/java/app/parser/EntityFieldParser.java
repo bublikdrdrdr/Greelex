@@ -109,7 +109,8 @@ public class EntityFieldParser extends FileEntityParser<RawField> {
         String stringType = fromBounds(bounds);
         if (TYPE_COMPLEX.matcher(stringType).matches()) {
             RawTypeToken rawTypeToken = splitToken(stringType);
-            if ("".equals(rawTypeToken.getSizeOrMappedBy())) throw new SemanticException("Size or 'mappedBy' value can't be empty", bounds.getStart());
+            if ("".equals(rawTypeToken.getSizeOrMappedBy()))
+                throw new SemanticException("Size or 'mappedBy' value can't be empty", bounds.getStart());
             CollectionType collectionType = Optional.ofNullable(rawTypeToken.getCollection()).map(CollectionType::getBySymbol).orElse(null);
             return createFieldTypeWithDataTypeOrEntity(rawTypeToken.getEntity(), collectionType, rawTypeToken.getSizeOrMappedBy());
         } else {

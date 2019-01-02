@@ -1,0 +1,30 @@
+.accessMode=lombok,
+.relationFetchType=eager,
+.collectionFetchType=lazy,.tableNaming=UNDERSCORE,
+.columnNaming=UNDERSCORE,
+AbstractEntity(super) {
+	id: long primary
+},
+User(AbstractEntity) {	
+	username: string unique,
+	name: string null,
+	type: UserType eager,
+	profile: Profile(user) eager join,
+	registeredBy: User null lazy,
+	pictures: Picture[](owner) lazy,
+	profilePictures: "profile_pictures" Picture[set](owner) lazy
+},
+//comment	
+UserType: "user_types" {
+	id: long primary,
+	name: string unique,
+	users: User[] lazy
+},
+Picture(AbstractEntity): "user_pictures" {
+	image: blob(5m),
+	owner: User lazy
+},
+Profile(AbstractEntity) {
+	visible: bool,
+	user: User eager
+}
