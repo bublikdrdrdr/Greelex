@@ -14,7 +14,7 @@ public class Console {
             if (stacktrace) {
                 e.printStackTrace();
             } else {
-                System.err.println(e.getMessage());
+                System.err.println(e.getClass().getName() + " : " + e.getMessage());
             }
         }
     }
