@@ -79,7 +79,8 @@ public class FieldGenerator extends AbstractGenerator<Field, Void> {
         if (fetchType == null) {
             fetchType = configuration.getCollectionFetchType();
         }
-        return "FetchType." + fetchType.name();
+        compilationUnit.addImport(Annotation.FETCH_TYPE.getImport());
+        return Annotation.FETCH_TYPE.getClassName() + "." + fetchType.name();
     }
 
     private boolean isMappedByCollection(Field data) {
@@ -95,8 +96,10 @@ public class FieldGenerator extends AbstractGenerator<Field, Void> {
 
     private void addPrimaryAnnotation(FieldDeclaration declaration) {
         Annotation.addAnnotation(Annotation.ID, compilationUnit, declaration);
-        declaration.addSingleMemberAnnotation(Annotation.GENERATED_VALUE.getClassName(),
-                new AssignExpr(new NameExpr("strategy"), new NameExpr("GenerationType.AUTO"), AssignExpr.Operator.ASSIGN));
+        declaration.addSingleMemberAnnotation(Annotation.GENERATED_VALUE.getClassName(), new AssignExpr(new NameExpr("strategy"),
+                new NameExpr(Annotation.GENERATION_TYPE.getClassName() + ".AUTO"), AssignExpr.Operator.ASSIGN));
+        compilationUnit.addImport(Annotation.GENERATED_VALUE.getImport());
+        compilationUnit.addImport(Annotation.GENERATION_TYPE.getImport());
     }
 
     private void addColumnAnnotation(FieldDeclaration declaration, String name, boolean nullable, boolean unique, Integer length) {

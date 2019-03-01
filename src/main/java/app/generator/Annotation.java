@@ -30,7 +30,9 @@ public enum Annotation {
     ONE_TO_ONE("OneToOne", Constants.PERSISTENCE),
     ONE_TO_MANY("OneToMany", Constants.PERSISTENCE),
     MANY_TO_ONE("ManyToOne", Constants.PERSISTENCE),
-    JOIN_COLUMN("JoinColumn", Constants.PERSISTENCE);
+    JOIN_COLUMN("JoinColumn", Constants.PERSISTENCE),
+    GENERATION_TYPE("GenerationType", Constants.PERSISTENCE),
+    FETCH_TYPE("FetchType", Constants.PERSISTENCE);
 
     @Getter
     private final String className;
